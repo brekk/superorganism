@@ -1,0 +1,66 @@
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛒 Checking out repo...
+        uses: actions/checkout@v4
+      - name: 🍓 Enabling corepack...
+        run: corepack enable
+      - name: 🚂 Setting up node...
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: yarn
+      - name: 🧶 Installing dependencies...
+        run: yarn --immutable
+      - name: 🔍 Checking version...
+        run: |
+          VERSION_PRIOR="$(cat package.json | grep version | cut -d":" -f2 | cut -d"\"" -f2)"
+          echo "VERSION_PRIOR=$VERSION_PRIOR">> "$GITHUB_ENV"
+      - name: 🧪 Running tests...
+        id: test
+        run: |
+          yarn test
+      - name: 🧼 Linting code...
+        id: lint
+        run: |
+          yarn lint
+      - name: 🏗️ Building bundle...
+        id: build
+        run: |
+          yarn build
+      - name: 🎨 Painting dependency graph...
+        id: graph
+        run: |
+          yarn meta:graph
+      - name: 🪵 Capturing changelog...
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v5
+        with:
+          preset: "conventionalcommits"
+          release-count: 0
+          github-token: ${{ secrets.github_token }}
+      - name: 🐣 Creating release...
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          release_name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+      - name: 🖨️ Publishing package...
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}

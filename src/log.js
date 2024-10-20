@@ -1,4 +1,4 @@
-import { complextrace } from 'envtrace'
-import PKG from '../package.json'
+import { complextrace } from "envtrace"
+import PKG from "../package.json" with { type: "json" }
 
-export const log = complextrace(PKG.name, ['info', 'config', 'io'])
+export const log = complextrace(PKG.name, ["info", "config", "io"])

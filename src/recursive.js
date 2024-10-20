@@ -10,11 +10,11 @@ import {
   fromPairs,
   T,
   cond,
-} from 'ramda'
+} from "ramda"
 
 const isArray = Array.isArray
-const isType = t => x => typeof x === t
-const isObject = allPass([is(Object), complement(isArray), isType('object')])
+const isType = (t) => (x) => typeof x === t
+const isObject = allPass([is(Object), complement(isArray), isType("object")])
 
 const mapSnd = curry(function _mapSnd(fn, [k, v]) {
   return [k, fn(v)]
@@ -25,17 +25,17 @@ const I2 = curry(function _I2(a, b) {
 
 export const recurse = curry(function _recurse(
   { pair: processPair = I2, field: processField = I2, list: processList = I2 },
-  raw
+  raw,
 ) {
   function walk(steps) {
-    return x =>
+    return (x) =>
       cond([
         [isArray, map(pipe(processList(steps), walk(steps)))],
         [
           isObject,
           pipe(
             toPairs,
-            map(pair => {
+            map((pair) => {
               const newSteps = [...steps]
               return pipe(
                 tap(([k, v]) => {
@@ -43,10 +43,10 @@ export const recurse = curry(function _recurse(
                   return [k, v]
                 }),
                 processPair(newSteps),
-                mapSnd(walk(newSteps))
+                mapSnd(walk(newSteps)),
               )(pair)
             }),
-            fromPairs
+            fromPairs,
           ),
         ],
         [T, processField(steps)],

@@ -23,10 +23,6 @@ jobs:
           cache: yarn
       - name: 🧶 Installing dependencies...
         run: yarn --immutable
-      - name: 🔍 Checking version...
-        run: |
-          VERSION_PRIOR="$(cat package.json | grep version | cut -d":" -f2 | cut -d"\"" -f2)"
-          echo "VERSION_PRIOR=$VERSION_PRIOR">> "$GITHUB_ENV"
       - name: 🧪 Running tests...
         id: test
         run: |

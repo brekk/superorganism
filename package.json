@@ -1,6 +1,6 @@
 {
   "name": "superorganism",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "script runner from beyond the moon 🐁",
   "type": "module",
   "bin": "./dist/cli.cjs",
@@ -61,5 +61,6 @@
     "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -1,6 +1,6 @@
 import { curry } from "ramda"
-import { recurse } from "./recursive"
 import { test, expect } from "vitest"
+import { recurse } from "./recursive"
 
 test(`recurse`, () => {
   expect(recurse).toBeTruthy()

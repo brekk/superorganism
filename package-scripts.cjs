@@ -5,7 +5,6 @@ const SELF = `nps -c ./package-scripts.cjs`
 const CLI_INPUT = "./src/cli.js"
 const CLI_OUTPUT = "./dist/cli.cjs"
 
-/* eslint-disable max-len */
 const build =
   ({ script = false, format }) =>
   ([infile, outfile]) =>

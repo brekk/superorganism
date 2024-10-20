@@ -4,7 +4,7 @@ import { $ } from "execa"
 
 export const all = Promise.all
 
-export const sd = (script, description = "") =>
+export const sd = (script, description = ``) =>
   description ? { script, description } : { script }
 
 const main = {

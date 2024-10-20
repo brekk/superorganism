@@ -39,7 +39,7 @@ const RAW_RUNTIME_STATE =
           ["altercation", "npm:0.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["destined", "npm:0.1.3"],\
-          ["dotenv-cli", "npm:7.3.0"],\
+          ["dotenv-cli", "npm:7.4.2"],\
           ["emoji-test-regex-pattern", "npm:2.2.0"],\
           ["envtrace", "npm:0.0.2"],\
           ["eslint", "virtual:d4f5cf170f94e05149e957dc4868df0cb9c41402e2db8c88c9b5240a57cd5acb70a85c0d3c46c35455e70feb33db48a4b07ba45f14ca00d7b28ea85efcedaa87#npm:9.13.0"],\
@@ -56,7 +56,7 @@ const RAW_RUNTIME_STATE =
           ["nps-utils", "npm:1.7.0"],\
           ["prettier", "npm:3.3.3"],\
           ["project-bin-path", "npm:2.0.0"],\
-          ["ramda", "npm:0.29.1"],\
+          ["ramda", "npm:0.30.1"],\
           ["rollup", "npm:4.24.0"],\
           ["string-width", "npm:7.2.0"],\
           ["vitest", "virtual:d4f5cf170f94e05149e957dc4868df0cb9c41402e2db8c88c9b5240a57cd5acb70a85c0d3c46c35455e70feb33db48a4b07ba45f14ca00d7b28ea85efcedaa87#npm:2.1.3"]\
@@ -4489,10 +4489,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dotenv-cli", [\
-      ["npm:7.3.0", {\
-        "packageLocation": "../../.yarn/berry/cache/dotenv-cli-npm-7.3.0-7b0ff066d1-10c0.zip/node_modules/dotenv-cli/",\
+      ["npm:7.4.2", {\
+        "packageLocation": "../../.yarn/berry/cache/dotenv-cli-npm-7.4.2-0682ed298d-10c0.zip/node_modules/dotenv-cli/",\
         "packageDependencies": [\
-          ["dotenv-cli", "npm:7.3.0"],\
+          ["dotenv-cli", "npm:7.4.2"],\
           ["cross-spawn", "npm:7.0.3"],\
           ["dotenv", "npm:16.4.5"],\
           ["dotenv-expand", "npm:10.0.0"],\
@@ -8195,6 +8195,13 @@ const RAW_RUNTIME_STATE =
           ["ramda", "npm:0.29.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.30.1", {\
+        "packageLocation": "../../.yarn/berry/cache/ramda-npm-0.30.1-b62811823d-10c0.zip/node_modules/ramda/",\
+        "packageDependencies": [\
+          ["ramda", "npm:0.30.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["rc", [\
@@ -9231,7 +9238,7 @@ const RAW_RUNTIME_STATE =
           ["altercation", "npm:0.1.0"],\
           ["chalk", "npm:5.3.0"],\
           ["destined", "npm:0.1.3"],\
-          ["dotenv-cli", "npm:7.3.0"],\
+          ["dotenv-cli", "npm:7.4.2"],\
           ["emoji-test-regex-pattern", "npm:2.2.0"],\
           ["envtrace", "npm:0.0.2"],\
           ["eslint", "virtual:d4f5cf170f94e05149e957dc4868df0cb9c41402e2db8c88c9b5240a57cd5acb70a85c0d3c46c35455e70feb33db48a4b07ba45f14ca00d7b28ea85efcedaa87#npm:9.13.0"],\
@@ -9248,7 +9255,7 @@ const RAW_RUNTIME_STATE =
           ["nps-utils", "npm:1.7.0"],\
           ["prettier", "npm:3.3.3"],\
           ["project-bin-path", "npm:2.0.0"],\
-          ["ramda", "npm:0.29.1"],\
+          ["ramda", "npm:0.30.1"],\
           ["rollup", "npm:4.24.0"],\
           ["string-width", "npm:7.2.0"],\
           ["vitest", "virtual:d4f5cf170f94e05149e957dc4868df0cb9c41402e2db8c88c9b5240a57cd5acb70a85c0d3c46c35455e70feb33db48a4b07ba45f14ca00d7b28ea85efcedaa87#npm:2.1.3"]\

@@ -16,14 +16,10 @@ import {
   uniq,
 } from "ramda"
 import { configurate } from "altercation"
-import {
-  interpretWithCancel,
-  relativePathJoin,
-  demandWithCancel,
-} from "destined"
+import { interpretWithCancel, demandWithCancel } from "destined"
 import { execWithConfig, signal } from "kiddo"
-import { $ as script } from "execa"
-import { bimap, Future, resolve } from "fluture"
+// import { $ as script } from "execa"
+import { bimap, resolve } from "fluture"
 
 import PKG from "../package.json"
 import { recurse } from "./recursive"
@@ -36,7 +32,7 @@ const getScriptFromTask = (t) => {
   return t
 }
 
-const SCRIPT_JOINER_DELIMITER = ":"
+const SCRIPT_JOINER_DELIMITER = `:`
 
 const makeScriptGetter = curry(function _makeScriptGetter(scripts, task) {
   return pipe(
@@ -51,7 +47,7 @@ export const getNestedTasks = (scripts) => {
   recurse(
     {
       pair: curry((crumbs, [k, v]) => {
-        if (k !== "description" && k !== "script") {
+        if (k !== `description` && k !== `script`) {
           tasks = uniq(tasks.concat([crumbs.join(SCRIPT_JOINER_DELIMITER)]))
         }
         return [k, v]
@@ -67,7 +63,7 @@ export const getNestedTasks = (scripts) => {
   return pipe(
     filter((taskName) => {
       const task = getScript(taskName)
-      if (typeof task === "object") return false
+      if (typeof task === `object`) return false
       return true
     }),
     (y) => y.sort(),
@@ -75,9 +71,9 @@ export const getNestedTasks = (scripts) => {
 }
 
 export const EXECA_FORCE_COLOR = {
-  env: { FORCE_COLOR: "true" },
+  env: { FORCE_COLOR: `true` },
 }
-const getStdOut = propOr("", "stdout")
+const getStdOut = propOr(``, `stdout`)
 
 export const executeWithCancel = curry(function _executeWithCancel(
   cancel,
@@ -92,13 +88,13 @@ export const executeWithCancel = curry(function _executeWithCancel(
     const [task] = config._
     if (tasks.includes(task)) {
       const get = getScript(task)
-      const scriptLookup = typeof get === "string" ? get : get.scriptLookup
-      const [cmd, ...args] = scriptLookup.split(" ")
+      const scriptLookup = typeof get === `string` ? get : get.scriptLookup
+      const [cmd, ...args] = scriptLookup.split(` `)
       if (scriptLookup) {
         return pipe(
           bimap(getStdOut)(getStdOut),
           signal(cancel, {
-            text: `${chalk.inverse(" " + task + " ")}: \`${chalk.green(
+            text: `${chalk.inverse(` ` + task + ` `)}: \`${chalk.green(
               scriptLookup,
             )}\``,
           }),
@@ -127,8 +123,8 @@ export const executeWithCancel = curry(function _executeWithCancel(
     map((task) => `${chalk.green(task)} - ${getScript(task)}`),
   )(tasks)
   return resolve(
-    (showHelp ? config.HELP : messages.join(" ")) +
-      `\n\n${chalk.inverse(" Available commands: ")}\n\n${commands.join("\n")}`,
+    (showHelp ? config.HELP : messages.join(` `)) +
+      `\n\n${chalk.inverse(` Available commands: `)}\n\n${commands.join(`\n`)}`,
   )
 })
 const { name: $NAME, description: $DESC } = PKG
@@ -150,18 +146,18 @@ export const runnerWithCancel = curry(function _runnerWithCancel(cancel, argv) {
     ),
     chain(({ basePath, config, commonjs: cjs = false, ...parsedConfig }) => {
       const source =
-        config || `${basePath}/package-scripts.${cjs ? "cjs" : "js"}`
+        config || `${basePath}/package-scripts.${cjs ? `cjs` : `js`}`
 
       return pipe(
         // require seems(?) to need more specificity, this needs testing
         (x) => path.resolve(basePath, x),
         // cjs ? relativePathJoin(basePath) : I,
-        log.config("reading..."),
+        log.config(`reading...`),
         // backwards-compat for `nps` here, if `--cjs` we can load the legacy format
         (cjs ? demandWithCancel : interpretWithCancel)(cancel),
-        log.config("read..."),
+        log.config(`read...`),
         map(
-          pipe(pathOr({}, ["scripts"]), (loadedScripts) => ({
+          pipe(pathOr({}, [`scripts`]), (loadedScripts) => ({
             config: { ...parsedConfig, source, commonjs: cjs },
             scripts: loadedScripts,
             tasks: getNestedTasks(loadedScripts),

@@ -3139,9 +3139,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-cli@npm:7.3.0":
-  version: 7.3.0
-  resolution: "dotenv-cli@npm:7.3.0"
+"dotenv-cli@npm:7.4.2":
+  version: 7.4.2
+  resolution: "dotenv-cli@npm:7.4.2"
   dependencies:
     cross-spawn: "npm:^7.0.3"
     dotenv: "npm:^16.3.0"
@@ -3149,7 +3149,7 @@ __metadata:
     minimist: "npm:^1.2.6"
   bin:
     dotenv: cli.js
-  checksum: 1fbad462078fe75c105ff47345671c0a38e8b5416db93a8c669e4e62dd26e3c1db6157aec0926ad6159bb176393395a493f0a23fd6a3e182191cf6d8380c6f16
+  checksum: 7841bfaa78975aa6b51e529bf5795e062bc6e595021d1931427bb55a6f75e1775d944f4dd91bef8accbbd539c466bfee48fa804e0f6b3a1bcf18ae7de0d64bed
   languageName: node
   linkType: hard
 
@@ -3216,7 +3216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emoji-test-regex-pattern@npm:^2.1.0":
+"emoji-test-regex-pattern@npm:^2.2.0":
   version: 2.2.0
   resolution: "emoji-test-regex-pattern@npm:2.2.0"
   checksum: 9e5e61633146d618a633a1a8f6d727c48198172d569f01d805b19617801b1d015544d5b1c284d808a5483337ac395f9bbac2e33c7db8cee242701fb6e0b7fb51
@@ -6513,6 +6513,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ramda@npm:0.30.1":
+  version: 0.30.1
+  resolution: "ramda@npm:0.30.1"
+  checksum: 3ea3e35c80e1a1b78c23de0c72d3382c3446f42052b113b851f1b7fc421e33a45ce92e7aef3c705cc6de3812a209d03417af5c264f67126cda539fd66c8bea71
+  languageName: node
+  linkType: hard
+
 "ramda@npm:^0.27.1":
   version: 0.27.2
   resolution: "ramda@npm:0.27.2"
@@ -7330,7 +7337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^7.0.0, string-width@npm:^7.1.0":
+"string-width@npm:^7.0.0, string-width@npm:^7.2.0":
   version: 7.2.0
   resolution: "string-width@npm:7.2.0"
   dependencies:
@@ -7521,8 +7528,8 @@ __metadata:
     altercation: "npm:^0.1.0"
     chalk: "npm:5.3.0"
     destined: "npm:0.1.3"
-    dotenv-cli: "npm:7.3.0"
-    emoji-test-regex-pattern: "npm:^2.1.0"
+    dotenv-cli: "npm:7.4.2"
+    emoji-test-regex-pattern: "npm:^2.2.0"
     envtrace: "npm:0.0.2"
     eslint: "npm:^9.13.0"
     eslint-plugin-import: "npm:^2.31.0"
@@ -7538,9 +7545,9 @@ __metadata:
     nps-utils: "npm:^1.7.0"
     prettier: "npm:^3.3.3"
     project-bin-path: "npm:2.0.0"
-    ramda: "npm:0.29.1"
+    ramda: "npm:0.30.1"
     rollup: "npm:^4.24.0"
-    string-width: "npm:^7.1.0"
+    string-width: "npm:^7.2.0"
     vitest: "npm:^2.1.3"
   bin:
     superorganism: ./dist/cli.cjs

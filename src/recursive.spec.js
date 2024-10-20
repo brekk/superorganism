@@ -2,7 +2,7 @@ import { curry } from "ramda"
 import { recurse } from "./recursive"
 import { test, expect } from "vitest"
 
-test("recurse", () => {
+test(`recurse`, () => {
   expect(recurse).toBeTruthy()
   const seven = () => `seven`
   expect(
@@ -10,18 +10,18 @@ test("recurse", () => {
       {
         field: curry((crumbs, x) => typeof x),
         list: curry((crumbs, x) => x),
-        pair: curry((crumbs, [k, v]) => (k === "magic" ? [k, 7] : [k, v])),
+        pair: curry((crumbs, [k, v]) => (k === `magic` ? [k, 7] : [k, v])),
       },
       {
         a: {
           b: {
             c: {
               d: {
-                e: [1, 2, 3, 4, 5, "six", seven],
+                e: [1, 2, 3, 4, 5, `six`, seven],
               },
               f: {
                 g: {
-                  h: "cool",
+                  h: `cool`,
                   i: false,
                   j: true,
                 },
@@ -30,8 +30,8 @@ test("recurse", () => {
             },
           },
         },
-        l: [{ m: "!" }, { n: "@" }],
-        magic: "this is a number, I promise!",
+        l: [{ m: `!` }, { n: `@` }],
+        magic: `this is a number, I promise!`,
       },
     ),
   ).toEqual({
@@ -40,21 +40,21 @@ test("recurse", () => {
         c: {
           d: {
             e: [
-              "number",
-              "number",
-              "number",
-              "number",
-              "number",
-              "string",
-              "function",
+              `number`,
+              `number`,
+              `number`,
+              `number`,
+              `number`,
+              `string`,
+              `function`,
             ],
           },
-          f: { g: { h: "string", i: "boolean", j: "boolean" } },
+          f: { g: { h: `string`, i: `boolean`, j: `boolean` } },
           k: {},
         },
       },
     },
-    l: [{ m: "string" }, { n: "string" }],
-    magic: "number",
+    l: [{ m: `string` }, { n: `string` }],
+    magic: `number`,
   })
 })

@@ -1,14 +1,13 @@
-const sd = (script, description = "") =>
+const sd = (script, description = ``) =>
   description ? { script, description } : { script }
 
 const SELF = `nps -c ./package-scripts.cjs`
-const CLI_INPUT = "./src/cli.js"
-const CLI_OUTPUT = "./dist/cli.cjs"
+const CLI_INPUT = `./src/cli.js`
+const CLI_OUTPUT = `./dist/cli.cjs`
 
-const build =
-  ({ script = false, format }) =>
-  ([infile, outfile]) =>
-    [
+const build = ({ script = false, format }) => {
+  return ([infile, outfile]) => {
+    return [
       `esbuild`,
       `${infile}`,
       `--outfile=${outfile}`,
@@ -18,24 +17,26 @@ const build =
       script ? `--banner:js='#!/usr/bin/env node'` : ``,
     ]
       .filter((z) => z)
-      .join(" ")
+      .join(` `)
+  }
+}
 
 module.exports = {
   scripts: {
-    clean: sd("rm -r dist", "unbuild!"),
+    clean: sd(`rm -r dist`, `unbuild!`),
     build: {
-      ...sd(`${SELF} build.cli build.perms`, "build everything!"),
+      ...sd(`${SELF} build.cli build.perms`, `build everything!`),
       //cli: sd("rollup -c rollup.config.mjs", "build cli!"),
       cli: sd(
-        build({ script: true, format: "cjs" })([CLI_INPUT, CLI_OUTPUT]),
-        "build cli!",
+        build({ script: true, format: `cjs` })([CLI_INPUT, CLI_OUTPUT]),
+        `build cli!`,
       ),
-      perms: sd(`chmod +x ${CLI_OUTPUT}`, "make the CLI file runnable"),
+      perms: sd(`chmod +x ${CLI_OUTPUT}`, `make the CLI file runnable`),
     },
     meta: {
       graph: `madge ${CLI_INPUT} --image graph.svg`,
     },
-    lint: sd("eslint --fix .", "lint!"),
+    lint: sd(`eslint --fix .`, `lint!`),
     test: {
       ...sd(`vitest --run --disable-console-intercept`, `test!`),
       ci: sd(`vitest --run`, `test for CI!`),
@@ -45,6 +46,6 @@ module.exports = {
         `update snapshots`,
       ),
     },
-    legacy: 'echo "THIS IS A LEGACY CONFIG FILE!"',
+    legacy: `echo "THIS IS A LEGACY CONFIG FILE!"`,
   },
 }

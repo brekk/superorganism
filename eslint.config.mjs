@@ -41,7 +41,7 @@ export default [
       "consistent-this": 0,
       "func-names": [2],
       "generator-star-spacing": [2, "after"],
-      indent: [2, 2],
+      indent: [1, 2],
       "jsx-quotes": [1, "prefer-double"],
       "max-len": [1, 100, 2],
       "new-cap": [2, { capIsNew: false }],

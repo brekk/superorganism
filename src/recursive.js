@@ -14,7 +14,7 @@ import {
 
 const isArray = Array.isArray
 const isType = (t) => (x) => typeof x === t
-const isObject = allPass([is(Object), complement(isArray), isType("object")])
+const isObject = allPass([is(Object), complement(isArray), isType(`object`)])
 
 const mapSnd = curry(function _mapSnd(fn, [k, v]) {
   return [k, fn(v)]

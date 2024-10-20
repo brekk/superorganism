@@ -1,28 +1,28 @@
 export const YARGS_CONFIG = {
   alias: {
     // these come from `nps`
-    silent: ["s"],
+    silent: [`s`],
     scripts: [],
-    config: ["c"],
-    logLevel: ["l"],
-    require: ["r"],
-    helpStyle: ["y"],
+    config: [`c`],
+    logLevel: [`l`],
+    require: [`r`],
+    helpStyle: [`y`],
     // these are things we've added
-    color: ["k"],
-    commonjs: ["cjs", "p"],
-    sequence: ["seq", "S"],
+    color: [`k`],
+    commonjs: [`cjs`, `p`],
+    sequence: [`seq`, `S`],
   },
-  array: ["require", "sequence"],
-  boolean: ["silent", "scripts", "future", "color", "commonjs"],
+  array: [`require`, `sequence`],
+  boolean: [`silent`, `scripts`, `future`, `color`, `commonjs`],
   configuration: {
     "strip-aliased": true,
   },
 }
 
 export const HELP_CONFIG = {
-  help: "This text!",
-  silent: "Silence superorganism output",
-  scripts: "Log command text for script",
+  help: `This text!`,
+  silent: `Silence superorganism output`,
+  scripts: `Log command text for script`,
   config: `Config file to use (defaults to nearest package-scripts.js)`,
   logLevel: `The log level to use (error | warn | info | debug)`,
   require: `Module to preload`,
@@ -35,7 +35,7 @@ export const HELP_CONFIG = {
 export const CONFIG_DEFAULTS = {
   scripts: true,
   future: false,
-  helpStyle: "all",
+  helpStyle: `all`,
   color: true,
   commonjs: false,
 }

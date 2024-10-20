@@ -35,10 +35,6 @@ jobs:
         id: build
         run: |
           yarn build
-      - name: 🎨 Painting dependency graph...
-        id: graph
-        run: |
-          yarn meta:graph
       - name: 🪵 Capturing changelog...
         id: changelog
         uses: TriPSs/conventional-changelog-action@v5

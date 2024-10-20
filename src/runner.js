@@ -151,12 +151,7 @@ export const runnerWithCancel = curry(function _runnerWithCancel(cancel, argv) {
     chain(({ basePath, config, commonjs: cjs = false, ...parsedConfig }) => {
       const source =
         config || `${basePath}/package-scripts.${cjs ? "cjs" : "js"}`
-      console.log(
-        "basepath",
-        basePath,
-        path.resolve(basePath, source),
-        relativePathJoin(basePath, source),
-      )
+
       return pipe(
         // require seems(?) to need more specificity, this needs testing
         (x) => path.resolve(basePath, x),

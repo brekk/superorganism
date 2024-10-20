@@ -2,10 +2,9 @@
 const sd = (script, description) =>
   description ? { description, script } : script
 
-const build =
-  ({ script = false, format }) =>
-  ([infile, outfile]) =>
-    [
+const build = ({ script = false, format }) => {
+  return ([infile, outfile]) => {
+    return [
       `esbuild`,
       `${infile}`,
       `--outfile=${outfile}`,
@@ -16,6 +15,8 @@ const build =
     ]
       .filter((z) => z)
       .join(` `)
+  }
+}
 
 const CLI_INPUT = `src/cli.js`
 const CLI_OUTPUT = `dist/cli.cjs`

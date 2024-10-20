@@ -5,12 +5,32 @@ const SELF = `nps -c ./package-scripts.cjs`
 const CLI_INPUT = "./src/cli.js"
 const CLI_OUTPUT = "./dist/cli.cjs"
 
+/* eslint-disable max-len */
+const build =
+  ({ script = false, format }) =>
+  ([infile, outfile]) =>
+    [
+      `esbuild`,
+      `${infile}`,
+      `--outfile=${outfile}`,
+      `--bundle`,
+      `--format=${format}`,
+      `--platform=node`,
+      script ? `--banner:js='#!/usr/bin/env node'` : ``,
+    ]
+      .filter((z) => z)
+      .join(" ")
+
 module.exports = {
   scripts: {
     clean: sd("rm -r dist", "unbuild!"),
     build: {
       ...sd(`${SELF} build.cli build.perms`, "build everything!"),
-      cli: sd("rollup -c rollup.config.mjs", "build cli!"),
+      //cli: sd("rollup -c rollup.config.mjs", "build cli!"),
+      cli: sd(
+        build({ script: true, format: "cjs" })([CLI_INPUT, CLI_OUTPUT]),
+        "build cli!",
+      ),
       perms: sd(`chmod +x ${CLI_OUTPUT}`, "make the CLI file runnable"),
     },
     meta: {

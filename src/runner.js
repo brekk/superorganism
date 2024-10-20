@@ -25,7 +25,7 @@ import { execWithConfig, signal } from "kiddo"
 import { $ as script } from "execa"
 import { bimap, Future, resolve } from "fluture"
 
-import PKG from "../package.json" with { type: "json" }
+import PKG from "../package.json"
 import { recurse } from "./recursive"
 import { log } from "./log"
 import { YARGS_CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from "./config"

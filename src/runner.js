@@ -3,6 +3,9 @@ import { Chalk } from "chalk"
 import { closest, distance } from "fastest-levenshtein"
 import {
   __,
+  any,
+  reduce,
+  includes,
   split,
   filter,
   propOr,
@@ -75,42 +78,51 @@ export const EXECA_FORCE_COLOR = {
 }
 const getStdOut = propOr(``, `stdout`)
 
+const invokeTask = curry(({ getScript, chalk, config }, cancel, task) => {
+  const get = getScript(task)
+  const scriptLookup = typeof get === `string` ? get : get.scriptLookup
+  const [cmd, ...args] = scriptLookup.split(` `)
+  if (scriptLookup) {
+    return pipe(
+      execWithConfig(cancel, cmd, {
+        cwd: process.cwd(),
+        ...(config.color ? EXECA_FORCE_COLOR : {}),
+      }),
+      bimap(getStdOut)(getStdOut),
+      signal(cancel, {
+        text: `${chalk.inverse(` ` + task + ` `)}: \`${chalk.green(
+          scriptLookup,
+        )}\``,
+      }),
+    )(args)
+  }
+})
+
 export const executeWithCancel = curry(function _executeWithCancel(
   cancel,
   { tasks, scripts, config },
 ) {
   const chalk = new Chalk({ level: config.color ? 2 : 0 })
-  if (config.help) return config.HELP
+  if (config.help) {
+    return config.HELP
+  }
   const getScript = makeScriptGetter(scripts)
   let showHelp = true
   const messages = []
   if (config._.length > 0) {
-    const [task] = config._
-    if (tasks.includes(task)) {
-      const get = getScript(task)
-      const scriptLookup = typeof get === `string` ? get : get.scriptLookup
-      const [cmd, ...args] = scriptLookup.split(` `)
-      if (scriptLookup) {
-        return pipe(
-          bimap(getStdOut)(getStdOut),
-          signal(cancel, {
-            text: `${chalk.inverse(` ` + task + ` `)}: \`${chalk.green(
-              scriptLookup,
-            )}\``,
-          }),
-        )(
-          execWithConfig(
-            cancel,
-            cmd,
-            {
-              cwd: process.cwd(),
-              ...(config.color ? EXECA_FORCE_COLOR : {}),
-            },
-            args,
-          ),
-        )
-      }
+    //const [task] = config._
+    //log.info("TASK!", { task, rest: config._ })
+    const matched = filter(includes(__, tasks), config._)
+    if (matched.length === config._.length) {
+      return reduce(
+        // this isn't ideal because we're dropping the previous future
+        (called, task) =>
+          invokeTask({ getScript, chalk, config }, cancel, task),
+        [],
+        config._,
+      )
     } else {
+      const [task] = config._
       messages.push(`I cannot understand the "${chalk.red(task)}" command.`)
       const lookup = closest(task, tasks)
       showHelp = false

@@ -1,6 +1,9 @@
-// import { sd } from './superorganism.mjs'
-const sd = (script, description) =>
-  description ? { description, script } : script
+const sd = (script, description = ``) =>
+  description ? { script, description } : { script }
+
+const SELF = `nps -c ./package-scripts.cjs`
+const CLI_INPUT = `./src/cli.js`
+const CLI_OUTPUT = `./dist/cli.cjs`
 
 const build = ({ script = false, format }) => {
   return ([infile, outfile]) => {
@@ -18,38 +21,31 @@ const build = ({ script = false, format }) => {
   }
 }
 
-const CLI_INPUT = `src/cli.js`
-const CLI_OUTPUT = `dist/cli.cjs`
-
 export default {
   scripts: {
     clean: sd(`rm -r dist`, `unbuild!`),
     build: {
-      ...sd(`nps -c ./package-scripts.cjs build.cli`, `build everything!`),
-      // main: sd(
-      // build({ script: false, format: 'esm' })([INPUT, OUTPUT]),
-      // 'build module!'
-      // ),
+      ...sd(`${SELF} build.cli build.perms`, `build everything!`),
+      //cli: sd("rollup -c rollup.config.mjs", "build cli!"),
       cli: sd(
         build({ script: true, format: `cjs` })([CLI_INPUT, CLI_OUTPUT]),
         `build cli!`,
       ),
+      perms: sd(`chmod +x ${CLI_OUTPUT}`, `make the CLI file runnable`),
     },
     meta: {
       graph: `madge ${CLI_INPUT} --image graph.svg`,
     },
     lint: sd(`eslint --fix .`, `lint!`),
     test: {
-      ...sd(`jest --coverage --verbose`, `test!`),
-      silent: sd(
-        `jest --silent --reporters=jest-silent-reporter --coverageReporters=none`,
-        `test, quietly.`,
+      ...sd(`vitest --run --disable-console-intercept`, `test!`),
+      ci: sd(`vitest --run`, `test for CI!`),
+      watch: sd(`vitest --disable-console-intercept`, `test with watch-mode!`),
+      snapshot: sd(
+        `vitest -u --run --disable-console-intercept`,
+        `update snapshots`,
       ),
-      ci: sd(
-        `jest --ci --json --coverage --testLocationInResults --outputFile=ci-report.json`,
-        `test for CI!`,
-      ),
-      watch: sd(`jest --watch`, `test with watch-mode!`),
     },
+    legacy: `echo "THIS IS A LEGACY CONFIG FILE!"`,
   },
 }

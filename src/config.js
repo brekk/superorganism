@@ -10,7 +10,9 @@ export const YARGS_CONFIG = {
     // these are things we've added
     color: [`k`],
     commonjs: [`cjs`, `p`],
-    sequence: [`seq`, `S`],
+    sequence: [`seq`, `q`],
+    // help is also here, but happens upstream in
+    // altercation
   },
   array: [`require`, `sequence`],
   boolean: [`silent`, `scripts`, `future`, `color`, `commonjs`],

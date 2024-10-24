@@ -5,6 +5,7 @@ import pluginJs from "@eslint/js"
 //import pkg from "./package.json" with { type: "json" }
 
 export default [
+  pluginJs.configs.recommended,
   {
     ignores: ["*.config.mjs", ".pnp*", "dist/*"],
   },
@@ -46,7 +47,13 @@ export default [
       "max-len": [1, 100, 2],
       "new-cap": [2, { capIsNew: false }],
       "no-trailing-spaces": [2, { skipBlankLines: true }],
-      "no-unused-vars": [2, { vars: "all", varsIgnorePattern: "^___" }],
+      "no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
       "object-curly-spacing": 0,
       "one-var": 0,
       "prefer-reflect": 0,
@@ -55,5 +62,4 @@ export default [
       "no-shadow": [2, { builtinGlobals: false, hoist: "all" }],
     },
   },
-  pluginJs.configs.recommended,
 ]

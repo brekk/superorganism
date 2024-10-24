@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  publish:
+  care:
     runs-on: ubuntu-latest
     steps:
       - name: 🛒 Checking out repo...
@@ -35,6 +35,10 @@ jobs:
         id: build
         run: |
           yarn build
+  publish:
+    if: steps.build.outcome == 'success' && github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
       - name: 🪵 Capturing changelog...
         id: changelog
         uses: TriPSs/conventional-changelog-action@v5
@@ -42,6 +46,8 @@ jobs:
           preset: "conventionalcommits"
           release-count: 0
           github-token: ${{ secrets.github_token }}
+          skip-tag: true
+          skip-commit: true
       - name: 🐣 Creating release...
         uses: actions/create-release@v1
         if: ${{ steps.changelog.outputs.skipped == 'false' }}

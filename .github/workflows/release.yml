@@ -36,7 +36,8 @@ jobs:
         run: |
           yarn build
   publish:
-    if: steps.build.outcome == 'success' && github.event.pull_request.merged
+    needs: care
+    if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
       - name: 🪵 Capturing changelog...
